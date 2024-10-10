@@ -179,7 +179,23 @@ app.get("/reset-password/:id/:token", async (req, res) => {
         res.send("Not Verified");
     }
     res.send("Done");
+});
+
+app.post("/updateUser", async(req, res)=>{
+    const { id, fname, lname } = req.body;
+    try {
+        await User.updateOne({_id: id}, {
+            $set: {
+                fname: fname,
+                lname: lname
+            }
+        })
+        return res.json({ status: "ok", data: "updated" })
+    } catch (error) {
+        return res.json({ stauts: "error", data: error})
+    }
 })
+
 
 app.post("/reset-password/:id/:token", async (req, res) => {
     const { id, token } = req.params;
@@ -211,4 +227,26 @@ app.post("/reset-password/:id/:token", async (req, res) => {
         res.send("Not Verified");
     }
     res.send("Done");
+})
+
+app.get("/getAllUser",async(req, res)=>{
+    try {
+        const allUser = await User.find({});
+        res.send({ status: "ok", data: allUser });
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+app.post("/deleteUser", async(req, res)=>{
+    const {userid}=req.body;
+    try {
+        User.deleteOne(
+            {_id: userid }, function (err, res) {
+                console.log(err);
+            });
+            res.send({ status: "Ok" , data: "Deleted" });
+    } catch (error) {
+        console.log(error);
+    }
 })
