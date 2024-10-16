@@ -47,8 +47,10 @@ app.post("/post", async(req, res)=>{
 });
 
 require("./userDetails");
+require("./eventDetails");
 
 const User = mongoose.model("UserInfo");
+const Event = mongoose.model("EventInfo");
 
 app.post("/register", async(req, res)=>{
     const {fname, lname, email, password, userType} = req.body;
@@ -75,6 +77,29 @@ app.post("/register", async(req, res)=>{
     }
 })
 
+app.post("/register-event", async(req, res)=>{
+    const {nome, modalidade, cidade, dataLargada, horario, organizacao, informacoes, patrocinio, inscricoes, programacao, regulamento} = req.body;
+    try {
+        const oldEvent = await Event.findOne({nome});
+        await Event.create({
+            nome,
+            modalidade,
+            cidade,
+            dataLargada,
+            horario,
+            organizacao,
+            informacoes,
+            patrocinio,
+            inscricoes,
+            programacao,
+            regulamento,
+        });
+        res.send({status:"OK"});
+    } catch (error) {
+        res.send({status:"error"})
+    }
+})
+
 app.post("/login-user", async(req, res)=>{
     const { email, password } = req.body;
 
@@ -86,7 +111,7 @@ app.post("/login-user", async(req, res)=>{
     if(await bcrypt.compare(password, user.password)){
         console.log("Porra");
         const token = jwt.sign({email:user.email }, JWT_SECRET, {
-            expiresIn: 10,
+            expiresIn: 10000000000,
         });
     
         if(res.status(201)){
@@ -119,6 +144,21 @@ app.post("/userData", async(req, res)=>{
         })
         .catch((error) => {
             res.send({ status: "error", data: error });
+        });
+    } catch (error) {
+        
+    }
+})
+
+app.post("/eventData", async(req, res)=>{
+    const { eventname } = req.body;
+    try {
+        User.findOne({nome: eventname})
+        .then((data)=>{
+            res.send({ status: "ok", data: data });
+        })
+        .catch((error) => {
+            res.send({ status: "error", data: error});
         });
     } catch (error) {
         
@@ -192,10 +232,33 @@ app.post("/updateUser", async(req, res)=>{
         })
         return res.json({ status: "ok", data: "updated" })
     } catch (error) {
-        return res.json({ stauts: "error", data: error})
+        return res.json({ status: "error", data: error})
     }
 })
 
+app.post("/updateEvent", async(req, res)=>{
+    const { id, nome, modalidade, cidade, dataLargada, horario, organizacao, informacoes, patrocinio, inscricoes, programacao, regulamento } = req.body;
+    try{
+        await Event.updateOne({_id: id}, {
+            $set: {
+                nome: nome,
+                modalidade: modalidade,
+                cidade: cidade,
+                dataLargada: dataLargada,
+                horario: horario,
+                organizacao: organizacao,
+                informacoes: informacoes,
+                patrocinio: patrocinio,
+                inscricoes: inscricoes,
+                programacao: programacao,
+                regulamento: regulamento,
+            }
+        })
+        return res.json({ status: "ok", data: "updated" })
+    } catch (error) {
+        return res.json({ status: "error", data: error})
+    }
+})
 
 app.post("/reset-password/:id/:token", async (req, res) => {
     const { id, token } = req.params;
@@ -238,14 +301,37 @@ app.get("/getAllUser",async(req, res)=>{
     }
 })
 
+app.get("/getAllEvent", async(req, res)=>{
+    try {
+        const allEvent = await Event.find({});
+        console.log("isso mostra tudo");
+        res.send({ status: "ok", data: allEvent });
+    } catch (error) {
+        console.log(error);
+    }
+})
+
 app.post("/deleteUser", async(req, res)=>{
     const {userid}=req.body;
     try {
-        User.deleteOne(
+        User.deleteMany(
             {_id: userid }, function (err, res) {
                 console.log(err);
             });
             res.send({ status: "Ok" , data: "Deleted" });
+    } catch (error) {
+        console.log(error);
+    }
+})
+
+app.post("/deleteEvent", async(req, res)=>{
+    const {eventid} = req.body;
+    try {
+        Event.deleteMany(
+            {_id: eventid }, function (err, res) {
+                console.log(err);
+            });
+            res.send({ status: "Ok", data: "Deleted" });
     } catch (error) {
         console.log(error);
     }
