@@ -53,7 +53,7 @@ const User = mongoose.model("UserInfo");
 const Event = mongoose.model("EventInfo");
 
 app.post("/register", async(req, res)=>{
-    const {fname, lname, email, password, userType} = req.body;
+    const {fname, lname, email, password, userType, eventos} = req.body;
     try{
         if(password){
             const encryptedPassword = await bcrypt.hash(password, 10);
@@ -68,7 +68,8 @@ app.post("/register", async(req, res)=>{
                 lname,
                 email,
                 password: encryptedPassword,
-                userType
+                userType,
+                eventos
             });
             res.send({status:"Ok"});
         }
@@ -260,6 +261,31 @@ app.post("/updateEvent", async(req, res)=>{
     }
 })
 
+app.post("/subscribeEvent", async(req, res)=>{
+    const { id, eventos, idEvent, inscricoes } = req.body;
+    console.log("eventos");
+    console.log(eventos);
+    console.log("inscricoes");
+    console.log(inscricoes);
+    try {
+        await User.updateOne({_id: id}, {
+            $set: {
+                eventos: eventos,
+            }
+        })
+        await Event.updateOne({_id: idEvent}, {
+            $set: {
+                inscricoes: inscricoes,
+            }
+        })
+        console.log("Alguma coisa cadastrou");
+        return res.json({ status: "ok", data: "updated" })
+    } catch (error) {
+        console.log("Alguma coisa não cadastrou");
+        return res.json({ status: "error", data: error})
+    }
+})
+
 app.post("/reset-password/:id/:token", async (req, res) => {
     const { id, token } = req.params;
     const { password } = req.body;
@@ -298,6 +324,37 @@ app.get("/getAllUser",async(req, res)=>{
         res.send({ status: "ok", data: allUser });
     } catch (error) {
         console.log(error);
+    }
+})
+
+app.post("/getSubscribedEvents",async(req, res)=>{
+    try {
+        const { eventos } = req.body;
+
+        console.log("tem algo aqui né");
+        console.log(eventos);
+
+        if (!Array.isArray(eventos) || eventos.length === 0) {
+            console.log("Nenhum evento encontrado");
+            //return res.status(400).send({ status: "error", message: "Nenhum evento fornecido" });
+        }
+
+        const subscribedEvents = await Promise.all(
+            eventos.map(async (eventoId) => {
+                const searchEvent = await Event.findOne(
+                    {
+                        nome:eventoId.name,
+                    }
+                );
+                return searchEvent;
+            })
+        );
+
+        res.send({ status: "ok", data: subscribedEvents.filter(Boolean) });
+    } catch (error) {
+        console.log("achou porra nenhuma");
+        console.log(error);
+        //res.status(500).send({ status: "error", message: "Erro interno ao buscar eventos inscritos" });
     }
 })
 
