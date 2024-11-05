@@ -402,7 +402,7 @@ const multer = require('multer')
 
 const storage = multer.diskStorage({
     destination: function (req, file, cb){
-        cb(null, './images/')
+        cb(null, '../src/images/')
     },
     filename: function (req, file, cb) {
         const uniqueSuffix = Date.now();
@@ -413,6 +413,7 @@ const storage = multer.diskStorage({
 const upload = multer({ storage: storage });
 
 app.post("/upload-image", upload.single("image"), async (req, res) => {
+    console.log("calma lá");
     console.log(req.body);
     const id = req.body.id;
     const imageName = req.file.filename;
