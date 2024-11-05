@@ -4,7 +4,7 @@
   box-sizing: border-box;
 }
 body {
-  background: #1c8ef9 !important;
+  background: #d0391d !important;
   min-height: 100vh;
   display: flex;
   font-weight: 400;
@@ -55,7 +55,7 @@ html,
 }
 
 .auth-wrapper .form-control:focus {
-  border-color: #167bff;
+  border-color: #d0391d;
   box-shadow: none;
 }
 
@@ -80,5 +80,9 @@ html,
 }
 
 .forgot-password a {
-  color: #167bff;
+  color: #d0391d;
+}
+
+.btn-primary{
+  color: #d0391d;
 }

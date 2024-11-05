@@ -187,7 +187,7 @@ export default function RegisterEvent() {
 
       <div className="d-grid">
         <button type="submit" className="btn btn-primary">
-          enviar
+          Enviar
         </button>
       </div>
     </form>

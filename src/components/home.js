@@ -26,7 +26,7 @@ export default function Home() {
     return (
         <div className="auth-wrapper">
             <div className="auth-inner" style={{width: "auto"}}>
-                <h3>Home</h3>
+                <h3>Página Inicial</h3>
                 <table style={{width:500}}>
                     <tr>
                         <th>Nome</th>

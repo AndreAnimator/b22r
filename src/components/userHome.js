@@ -91,7 +91,7 @@ export default function UserHome() {
             <div className="auth-inner">
                 <FontAwesomeIcon icon={faUserPlus} onClick={() => navigate("/updateUser", { state: userData })} />
                 <div>
-                    Name<h1>{userData.fname}</h1>
+                    Nome<h1>{userData.fname}</h1>
                     Email <h1>{userData.email}</h1>
                     <br />
                     <table style={{ width: 500 }}>
@@ -99,7 +99,7 @@ export default function UserHome() {
                             <th>Nome</th>
                             <th>Data</th>
                             <th>Cidade</th>
-                            <th>Delete</th>
+                            <th>Deletar</th>
                         </tr>
                         {eventData.map(i => (
                             <tr key={i._id}>
@@ -111,7 +111,7 @@ export default function UserHome() {
                         ))}
                     </table>
                     <button onClick={logOut} className="btn btn-primary">
-                        Log Out
+                        Deslogar
                     </button>
                 </div>
             </div>

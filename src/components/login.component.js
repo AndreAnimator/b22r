@@ -39,10 +39,10 @@ export default class Login extends Component {
   render() {
     return (
       <form onSubmit={this.handleSubmit}>
-        <h3>Sign In</h3>
+        <h3>Login</h3>
 
         <div className="mb-3">
-          <label>Email address</label>
+          <label>Endereço de Email</label>
           <input
             type="email"
             className="form-control"
@@ -52,7 +52,7 @@ export default class Login extends Component {
         </div>
 
         <div className="mb-3">
-          <label>Password</label>
+          <label>Senha</label>
           <input
             type="password"
             className="form-control"
@@ -69,18 +69,18 @@ export default class Login extends Component {
               id="customCheck1"
             />
             <label className="custom-control-label" htmlFor="customCheck1">
-              Remember me
+              Lembre-se de mim
             </label>
           </div>
         </div>
 
         <div className="d-grid">
           <button type="submit" className="btn btn-primary">
-            Submit
+            Acessar
           </button>
         </div>
         <p className="forgot-password text-right">
-          Forgot <a href="./reset">password?</a>
+          Esqueceu sua <a href="./reset">senha?</a>
         </p>
       </form>
     )

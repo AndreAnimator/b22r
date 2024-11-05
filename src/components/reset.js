@@ -32,10 +32,10 @@ export default class Reset extends Component {
     render() {
         return (
             <form onSubmit={this.handleSubmit}>
-                <h3>Forgot Password</h3>
+                <h3>Esqueceu a Senha</h3>
 
                 <div className="mb-3">
-                    <label>Email address</label>
+                    <label>Endereço de Email</label>
                     <input
                        type="email"
                        className="form-control"
@@ -46,11 +46,11 @@ export default class Reset extends Component {
 
                 <div className="d-grid">
                     <button type="submit" className="btn btn-primary">
-                        Submit
+                        Evniar
                     </button>
                 </div>
                 <p className="forgot-password text-right">
-                    <a href="/sign-up"> Sign Up </a>
+                    <a href="/sign-up"> Logar </a>
                 </p>
             </form>
         )

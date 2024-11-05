@@ -68,15 +68,15 @@ export default function UpdateUser() {
         <div cllassName="auth-wrapper">
             <div className="auth-inner">
 
-                First Name <br/>
+                Primeiro Nome <br/>
                 <input placeholder="First Name" className="form-control" defaultValue={fname} onChange={(e) => setFname(e.target.value)}/><br/>
-                Last Name <br />
+                Sobrenome <br />
                 <input placeholder="Last Name" className="form-control" defaultValue={lname} onChange={(e) => setLname(e.target.value)}/><br />
                 Email<br />
                 <input placeholder="email" className="form-control" defaultValue={email} disabled/><br />
                 {image == null
-                ? <div>ta vazio</div>
-                : <img src={'/images/${image}'} height={100} width={100}></img>}
+                ? <div>Sem Imagem</div>
+                : <img src={'/images/${image}'} height={100} width={100}>{console.log("/images/",image)}</img>}
                 <div>
                     <form onSubmit={submitImage}>
                         <input type="file" accept="image" onChange={onInputChange}></input>
@@ -84,7 +84,7 @@ export default function UpdateUser() {
                     </form>
                 </div>
 
-                <button onClick={UpdateData}>Update Details</button>
+                <button onClick={UpdateData}>Atualizar Detalhes</button>
             </div>
         </div>
     )

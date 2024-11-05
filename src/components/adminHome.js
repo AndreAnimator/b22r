@@ -94,13 +94,13 @@ export default function AdminHome({userData}) {
     return (
         <div className="auth-wrapper">
             <div className="auth-inner" style={{width: "auto"}}>
-                <h3>Welcome Admin</h3>
+                <h3>Bem-vindo, Administrador</h3>
                 <table style={{width:500}}>
                     <tr>
-                        <th>Name</th>
+                        <th>Nome</th>
                         <th>Email</th>
-                        <th>User Type</th>
-                        <th>Delete</th>
+                        <th>Tipo de Usuário</th>
+                        <th>Deletar</th>
                     </tr>
                     {data.map(i=>{
                         return(
@@ -120,7 +120,7 @@ export default function AdminHome({userData}) {
                         <th>Nome</th>
                         <th>Data</th>
                         <th>Cidade</th>
-                        <th>Delete</th>
+                        <th>Deletar</th>
                     </tr>
                     {eventdata.map(i=>{
                         return(
@@ -142,7 +142,7 @@ export default function AdminHome({userData}) {
                 </div>
 
                 <button onClick={logOut} className="btn btn-primary">
-                    Log Out
+                    Deslogar
                 </button>
             </div>
         </div>
