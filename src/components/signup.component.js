@@ -2,6 +2,12 @@ import React, { Component, useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
+import * as masks from './masks'
+import {
+  isValidCNPJ,
+  isValidCPF,
+  isValidPhone
+} from "@brazilian-utils/brazilian-utils";
 
 export default function SignUp() {
   const [fname, setFname] = useState("");
@@ -34,7 +40,26 @@ export default function SignUp() {
     secretKey: Yup.string().when('userType', {
           is: 'Admin',
           then: Yup.string().required('Chave secreta é obrigatória para Admins')
-        })
+        }),
+        cpf_cnpj: Yup
+    .string()
+    .required('CPF/CNPJ é obrigatório')
+    .transform(masks.cpfOrCnpjMask.transform)
+    .test("validateCpfOrCnpj", "Invalid CNPJ or CNPJ", (value) => {
+      if (!value) {
+        return false;
+      }
+
+      if (value.length === 11) {
+        return isValidCPF(value);
+      }
+
+      if (value.length === 14) {
+        return isValidCNPJ(value);
+      }
+
+      return false;
+    }),
   });
   const formOptions = { resolver: yupResolver(validationSchema),
     mode: 'onChange' };
@@ -185,6 +210,19 @@ export default function SignUp() {
               <input name="confirmPassword" type="password" {...register('confirmPassword')} className={`form-control ${errors.confirmPassword ? 'is-invalid' : ''}`} />
               <div className="invalid-feedback">{errors.confirmPassword?.message}</div>
           </div>
+      </div>
+      <div className="form-row">
+        <div className="form-group col">
+          <label>CPF/CNPJ</label>
+          <input
+            {...register('cpf_cnpj')}
+            placeholder="Digite o CPF/CNPJ"
+            className={`form-control ${errors.cpf_cnpj ? 'is-invalid' : ''}`}
+            name="cpf_cnpj"
+            onChange={masks.cpfOrCnpjMask.onChange}
+          />
+          <div className="invalid-feedback">{errors.cpf_cnpj?.message}</div>
+        </div>
       </div>
       <div className="form-group">
           <button type="submit" className="btn btn-primary mr-1">Registrar</button>
