@@ -25,13 +25,13 @@ function App() {
         <nav className="navbar navbar-expand-lg navbar-light fixed-top">
           <div className="container">
             <Link className="navbar-brand" to={'/sign-in'}>
-              positronX
+              <img src={require('./images/logo.jpg')} className="img-thumbnail logo"></img>
             </Link>
             <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
               <ul className="navbar-nav ml-auto">
               <li className="nav-item">
                   <Link className="nav-link" to={'/home'}>
-                    Home
+                    Página Inicial
                   </Link>
                 </li>
                 <li className="nav-item">
@@ -41,12 +41,12 @@ function App() {
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to={'/sign-up'}>
-                    Sign up
+                    Cadastrar
                   </Link>
                 </li>
                 <li className="nav-item">
                   <Link className="nav-link" to={'/userDetails'}>
-                    Details
+                    Conta
                   </Link>
                 </li>
               </ul>

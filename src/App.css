@@ -40,6 +40,10 @@
   border-color: #b01515;
   box-shadow: 0 0 0 .25rem #de662f;
 }
+.logo{
+  height: 2%;
+  width: 10%;
+}
 
 @keyframes App-logo-spin {
   from {

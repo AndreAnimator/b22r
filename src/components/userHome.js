@@ -87,8 +87,8 @@ export default function UserHome() {
     }
 
     return (
-        <div className="auth-wrapper">
-            <div className="auth-inner">
+        <div className="position-relative">
+            <div className="flex-fill">
                 <FontAwesomeIcon icon={faUserPlus} onClick={() => navigate("/updateUser", { state: userData })} />
                 <div>
                     Nome<h1>{userData.fname}</h1>

@@ -37,31 +37,38 @@ export default function SignUp() {
         .required('Confirmar senha é obrigatório'),
     userType: Yup.string()
         .required('Deve selecionar uma opção'),
-    secretKey: Yup.string().when('userType', {
-          is: 'Admin',
-          then: Yup.string().required('Chave secreta é obrigatória para Admins')
-        }),
+        secretKey: Yup.string(),
         cpf_cnpj: Yup
     .string()
     .required('CPF/CNPJ é obrigatório')
     .transform(masks.cpfOrCnpjMask.transform)
-    .test("validateCpfOrCnpj", "Invalid CNPJ or CNPJ", (value) => {
+    .test("validateCpfOrCnpj", "CPF ou CNPJ inválido", (value) => {
       if (!value) {
         return false;
       }
+      const unmaskedValue = masks.cpfOrCnpjMask.unmask(value);
+      console.log("unmasked value: ", unmaskedValue);
 
-      if (value.length === 11) {
+      if (unmaskedValue.length === 11) {
         return isValidCPF(value);
       }
 
-      if (value.length === 14) {
+      if (unmaskedValue.length === 14) {
         return isValidCNPJ(value);
       }
 
       return false;
     }),
   });
-  const formOptions = { resolver: yupResolver(validationSchema),
+
+  function validateAdminSecretKey(schema, secretKey) {
+    return schema.when('userType', {
+      is: 'Admin',
+      then: Yup.string().required('Chave secreta é obrigatória para Admins'),
+      otherwise: Yup.string(),
+    });
+  }
+  const formOptions = { resolver: yupResolver(validationSchema, secretKey),
     mode: 'onChange' };
 
   // get functions to build form with useForm() hook
@@ -70,7 +77,7 @@ export default function SignUp() {
 
   function onSubmit(data) {
     // display form data on success
-    const { firstName, lastName, dob, email, password, userType, confirmPassword } = data;
+    const { firstName, lastName, dob, email, password, userType, confirmPassword, cpf_cnpj } = data;
     
     // Validação para Admin
     if (data.userType === 'Admin' && data.secretKey !== 'MaratonaBBBB') {
