@@ -10,6 +10,7 @@ import {
 } from "@brazilian-utils/brazilian-utils";
 
 export default function SignUp() {
+  const [secretKey] = useState("");
 
   const validationSchema = Yup.object().shape({
     firstName: Yup.string()

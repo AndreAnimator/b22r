@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { faPlusSquare, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useLocation } from "react-router-dom";
 
 export default function UserHome() {
+    const location = useLocation();
     const navigate = useNavigate();
     const [userData, setUserData] = useState({});
     const [eventData, setEventData] = useState([]);
