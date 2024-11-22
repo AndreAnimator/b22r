@@ -1,12 +1,11 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as Yup from 'yup';
 import * as masks from './masks'
 import {
   isValidCNPJ,
-  isValidCPF,
-  isValidPhone
+  isValidCPF
 } from "@brazilian-utils/brazilian-utils";
 
 export default function SignUp() {
@@ -55,13 +54,13 @@ export default function SignUp() {
     }),
   });
 
-  function validateAdminSecretKey(schema, secretKey) {
+  /*function validateAdminSecretKey(schema, secretKey) {
     return schema.when('userType', {
       is: 'Admin',
       then: Yup.string().required('Chave secreta é obrigatória para Admins'),
       otherwise: Yup.string(),
     });
-  }
+  }*/
   const formOptions = { resolver: yupResolver(validationSchema, secretKey),
     mode: 'onChange' };
 
@@ -71,7 +70,7 @@ export default function SignUp() {
 
   function onSubmit(data) {
     // display form data on success
-    const { firstName, lastName, dob, email, password, userType, confirmPassword, cpf_cnpj } = data;
+    const { firstName, lastName, email, password } = data;
     
     // Validação para Admin
     if (data.userType === 'Admin' && data.secretKey !== 'MaratonaBBBB') {

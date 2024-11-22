@@ -5,7 +5,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 export default function EventDetails() {
     const location = useLocation();
-    const [eventData, setEventData] = useState("");
 
     const [userData, setUserData] = useState({});
     const [admin, setAdmin] = useState(false);

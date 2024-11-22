@@ -29,7 +29,7 @@ export default function RegisterEvent() {
 
   const handleSubmit = (e) => {
       e.preventDefault();
-      setInscricoes = [];
+      setInscricoes([]);
       console.log(nome,
         modalidade,
         cidade,
