@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom"
 import axios from 'axios';
-import { any } from "zod";
 
 export default function UpdateUser() {
     const location = useLocation();
@@ -25,7 +24,7 @@ export default function UpdateUser() {
         console.log(location.state.image);
         console.log('esqueci');
         setImagePath(require("../images/"+location.state.image));
-    }, [location.state]);
+    }, [location, image]);
 
     const UpdateData=()=>{
         console.log(fname, lname);
