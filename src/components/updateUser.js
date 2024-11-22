@@ -25,7 +25,7 @@ export default function UpdateUser() {
         console.log(location.state.image);
         console.log('esqueci');
         setImagePath(require("../images/"+location.state.image));
-    }, [location.state, image]);
+    }, [location.state]);
 
     const UpdateData=()=>{
         console.log(fname, lname);
@@ -58,14 +58,14 @@ export default function UpdateUser() {
         formData.append("id", id);
         console.log("Imagem: ");
         console.log(image);
-        const result = any;
-        result = await axios.post(
+        const result = await axios.post(
           "http://localhost:5000/upload-image",
           formData,
           {
             headers: { "Contet-Type": "multipart/form-data"},
           }
         )
+        console.log(result);
     }
     const onInputChange=(e)=>{
         console.log(e.target.files[0]);
@@ -84,7 +84,7 @@ export default function UpdateUser() {
                 <input placeholder="email" className="form-control" defaultValue={email} disabled/><br />
                 {imagePath == null
                 ? <div>Sem Imagem</div>
-                : <img alt="user profile picture" src={imagePath} height={100} width={100}>{console.log("../images/"+image)}</img>}
+                : <img alt="user profile" src={imagePath} height={100} width={100}>{console.log("../images/"+image)}</img>}
                 <div>
                     <form onSubmit={submitImage}>
                         <input type="file" accept="image" onChange={onInputChange}></input>
