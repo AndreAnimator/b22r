@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom"
-import axios from "axios";
+import { axios }from "axios";
 
 export default function UpdateUser() {
     const location = useLocation();
@@ -9,6 +9,7 @@ export default function UpdateUser() {
     const [email, setEmail] = useState("");
     const [image, setImage] = useState(null);
     const [id, setId] = useState("");
+    const [imagePath, setImagePath] = useState(null);
 
 
     useEffect(() => {
@@ -18,7 +19,11 @@ export default function UpdateUser() {
         setEmail(location.state.email);
         setId(location.state._id);
         setImage(location.state.image);
+        console.log('esqueci');
         console.log(image);
+        console.log(location.state.image);
+        console.log('esqueci');
+        setImagePath(require("../images/"+location.state.image));
     }, []);
 
     const UpdateData=()=>{
@@ -50,7 +55,8 @@ export default function UpdateUser() {
         const formData = new FormData();
         formData.append("image", image);
         formData.append("id", id);
-        
+        console.log("Imagem: ");
+        console.log(image);
         const result = await axios.post(
           "http://localhost:5000/upload-image",
           formData,
@@ -74,9 +80,9 @@ export default function UpdateUser() {
                 <input placeholder="Last Name" className="form-control" defaultValue={lname} onChange={(e) => setLname(e.target.value)}/><br />
                 Email<br />
                 <input placeholder="email" className="form-control" defaultValue={email} disabled/><br />
-                {image == null
+                {imagePath == null
                 ? <div>Sem Imagem</div>
-                : <img src={'/images/${image}'} height={100} width={100}>{console.log("/images/",image)}</img>}
+                : <img src={imagePath} height={100} width={100}>{console.log("../images/"+image)}</img>}
                 <div>
                     <form onSubmit={submitImage}>
                         <input type="file" accept="image" onChange={onInputChange}></input>

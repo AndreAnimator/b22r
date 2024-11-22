@@ -417,6 +417,8 @@ app.post("/upload-image", upload.single("image"), async (req, res) => {
     console.log(req.body);
     const id = req.body.id;
     const imageName = req.file.filename;
+    console.log("nome da imagem");
+    console.log(imageName);
     try {
         await User.updateOne(
             {
