@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useLocation } from 'react-router-dom';
 import PatrocinioItem from './patrocinioItem';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -42,7 +42,19 @@ export default function UpdateEvent() {
         setProgramacao(location.state.programacao);
         setRegulamento(location.state.regulamento);
 
-    }, []);
+    }, [
+      location.state.nome,
+      location.state.modalidade,
+      location.state.cidade,
+      location.state.dataLargada,
+      location.state.horario,
+      location.state.organizacao,
+      location.state.informacoes,
+      location.state.patrocinio,
+      location.state.inscricoes,
+      location.state.programacao,
+      location.state.regulamento
+    ]);
 
     const addPatrocinio = () => {
         setPatrocinio([...patrocinio, { id: Date.now(), name: '' }]);

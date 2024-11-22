@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom"
 import axios from 'axios';
+import { any } from "zod";
 
 export default function UpdateUser() {
     const location = useLocation();
@@ -24,7 +25,7 @@ export default function UpdateUser() {
         console.log(location.state.image);
         console.log('esqueci');
         setImagePath(require("../images/"+location.state.image));
-    }, []);
+    }, [location.state, image]);
 
     const UpdateData=()=>{
         console.log(fname, lname);
@@ -57,7 +58,8 @@ export default function UpdateUser() {
         formData.append("id", id);
         console.log("Imagem: ");
         console.log(image);
-        const result = await axios.post(
+        const result = any;
+        result = await axios.post(
           "http://localhost:5000/upload-image",
           formData,
           {
@@ -82,7 +84,7 @@ export default function UpdateUser() {
                 <input placeholder="email" className="form-control" defaultValue={email} disabled/><br />
                 {imagePath == null
                 ? <div>Sem Imagem</div>
-                : <img src={imagePath} height={100} width={100}>{console.log("../images/"+image)}</img>}
+                : <img alt="user profile picture" src={imagePath} height={100} width={100}>{console.log("../images/"+image)}</img>}
                 <div>
                     <form onSubmit={submitImage}>
                         <input type="file" accept="image" onChange={onInputChange}></input>

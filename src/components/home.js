@@ -1,11 +1,10 @@
-import React, { Component, useEffect, useState } from "react";
-import { faPlusSquare, faTrash } from "@fortawesome/free-solid-svg-icons";
+import React, { useEffect, useState } from "react";
+import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useNavigate } from "react-router-dom";
 
 export default function Home() {
     const navigate = useNavigate();
-    const [data, setData] = useState([]);
     const [eventdata, setEventData] = useState([]);
 
     useEffect(() => {

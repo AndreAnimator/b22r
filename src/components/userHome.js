@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { faPlusSquare, faTrash, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faPlusSquare, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
@@ -76,7 +76,7 @@ export default function UserHome() {
         };
 
         fetchData();
-    }, []);
+    }, [location.state, userData]);
 
     if (isLoading) {
         return <div>Carregando...</div>;

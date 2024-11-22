@@ -1,4 +1,4 @@
-import React, { Component, useState } from 'react'
+import React, { useState } from 'react'
 
 let nextId = 0;
 
@@ -29,7 +29,7 @@ export default function RegisterEvent() {
 
   const handleSubmit = (e) => {
       e.preventDefault();
-
+      setInscricoes = [];
       console.log(nome,
         modalidade,
         cidade,
@@ -152,12 +152,12 @@ export default function RegisterEvent() {
           value={name}
           onChange={e => setName(e.target.value)}
         />
-        <a onClick={() => {
+        <button onClick={() => {
           setPatrocinio([
             ...patrocinio,
             { id: nextId++, name: name }
           ]);
-        }}>Add</a>
+        }}>Add</button>
         <ul>
           {patrocinio.map(patro => (
             <li key={patro.id}>{patro.name}</li>

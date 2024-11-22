@@ -1,8 +1,7 @@
-import React, { Component, useEffect, useState } from "react";
-import { faPlusSquare, faUserPlus } from "@fortawesome/free-solid-svg-icons";
-import { useLocation, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { faPlusSquare } from "@fortawesome/free-solid-svg-icons";
+import { useLocation } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import PatrocinioItem from "./patrocinioItem";
 
 export default function EventDetails() {
     const location = useLocation();
@@ -52,7 +51,7 @@ export default function EventDetails() {
             .then((data)=>{
             console.log("dados do usuario");
             console.log(data,"userData");
-            if(data.data.userType=="Admin"){
+            if(data.data.userType==="Admin"){
                 setAdmin(true);
             }
             
@@ -68,9 +67,10 @@ export default function EventDetails() {
                 console.log("que eventos ele ja tem?");
                 console.log(eventos);
                 eventos.map(item => {
-                    if(item.name == nome){
+                    if(item.name === nome){
                         setIsSubscribed(true);
                     }
+                    return item;
                 });
             }
 
@@ -83,7 +83,33 @@ export default function EventDetails() {
             console.error("Error fetching user data:", error);
             this.setState({ error: "Failed to load user data" });
             });
-    }, []);
+    }, [
+        location.state.nome,
+        location.state.modalidade,
+        location.state.cidade,
+        location.state.dataLargada,
+        location.state.horario,
+        location.state.organizacao,
+        location.state.informacoes,
+        location.state.patrocinio,
+        location.state.inscricoes,
+        location.state.programacao,
+        location.state.regulamento,
+        nome,
+        modalidade,
+        cidade,
+        dataLargada,
+        horario,
+        organizacao,
+        informacoes,
+        patrocinio,
+        inscricoes,
+        programacao,
+        regulamento,
+        admin,
+        userData,
+        eventos
+    ]);
 
     const AddParticipant = () => {
         if (!userData._id) {

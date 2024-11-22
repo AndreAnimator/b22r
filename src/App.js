@@ -25,7 +25,7 @@ function App() {
         <nav className="navbar navbar-expand-lg navbar-light fixed-top">
           <div className="container">
             <Link className="navbar-brand" to={'/sign-in'}>
-              <img src={require('./images/logo.jpg')} className="img-thumbnail logo"></img>
+              <img src={require('./images/logo.jpg')} alt="b22r logo" className="img-thumbnail logo"></img>
             </Link>
             <div className="collapse navbar-collapse" id="navbarTogglerDemo02">
               <ul className="navbar-nav ml-auto">
@@ -80,7 +80,7 @@ function App() {
               <Route path="/eventDetails" element={<EventDetails/>} />
               
               {
-                userType!="Admin"?(<>
+                userType!=="Admin"?(<>
                   <Route path="/" element={<Navigate to="/home"/>} />
                   <Route path="/home" element={<Home/>} />
                   <Route path="/userDetails" element={<UserDetails />} />
