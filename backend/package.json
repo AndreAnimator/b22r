@@ -23,5 +23,9 @@
   
 "nodemailer": "^6.9.16"
   
-}
+},
+"scripts": {
+    "start": "node app.js",
+    "build": "node app.js"
+  }
 }
